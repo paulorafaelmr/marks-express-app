@@ -1,7 +1,7 @@
 export type TipoPedagio = "na_tag" | "incluso_frete" | "pago_marks";
 
 export type ConfiguracoesFrete = {
-  id: number;
+  user_id: string;
   comissao_motorista: number | string;
   media_caminhao_km_l: number | string;
   preco_medio_diesel: number | string;
@@ -10,6 +10,7 @@ export type ConfiguracoesFrete = {
 
 export type Frete = {
   id: string;
+  user_id?: string;
   data: string;
   empresa_agenciador: string | null;
   origem: string;
