@@ -662,7 +662,6 @@ export default function ContasFixasPage() {
             )}
           </article>
         </section>
-        </section>
       </AppShell>
     </AuthGuard>
   );
