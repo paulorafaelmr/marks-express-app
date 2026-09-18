@@ -731,3 +731,21 @@ textarea { resize: vertical; }
   .detail-metrics { grid-template-columns: 1fr; }
   .login-card { padding: 24px 20px; }
 }
+
+
+.detail-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 780px) {
+  .detail-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .detail-header-actions .secondary-button {
+    flex: 1;
+  }
+}
