@@ -204,3 +204,222 @@ textarea { resize: vertical; }
   .form-grid .full { grid-column: auto; }
   .form-actions { flex-direction: column-reverse; }
 }
+
+
+/* Marks Express V1 */
+.page-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-input {
+  width: auto;
+  min-width: 160px;
+}
+
+.primary-button {
+  gap: 8px;
+}
+
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.sidebar-new {
+  margin-top: 22px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 11px;
+  background: white;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.metrics-five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.dashboard-side {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.parameter-list {
+  display: grid;
+  margin-top: 18px;
+}
+
+.parameter-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.parameter-list > div:last-child {
+  border-bottom: 0;
+}
+
+.parameter-list span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.parameter-list strong {
+  font-size: 14px;
+}
+
+.icon-link {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.quick-info {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.quick-info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.quick-info span,
+.quick-info strong {
+  display: block;
+}
+
+.quick-info span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.quick-info strong {
+  font-size: 14px;
+}
+
+.quick-info p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 7px 0 0;
+}
+
+.empty-state.compact {
+  min-height: 360px;
+}
+
+.freight-toolbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 220px 170px;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.freight-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.freight-table-head {
+  display: grid;
+  grid-template-columns: 110px 1.5fr 1.2fr 130px 130px 160px;
+  gap: 14px;
+  padding: 15px 20px;
+  background: var(--surface-soft);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.calculation-note {
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.calculation-note strong {
+  color: var(--text);
+}
+
+@media (max-width: 1180px) {
+  .metrics-five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .freight-table-head {
+    grid-template-columns: 90px 1.5fr 1fr 120px 150px;
+  }
+
+  .freight-table-head span:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .page-topbar,
+  .topbar-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .topbar-actions .month-input,
+  .topbar-actions .primary-button {
+    width: 100%;
+  }
+
+  .metrics-five {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .freight-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .freight-table-head {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .metrics-five {
+    grid-template-columns: 1fr;
+  }
+}
