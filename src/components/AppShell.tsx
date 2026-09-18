@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Gauge, LogOut, Plus, Settings, Truck } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { usePathname } from "next/navigation";
+import { Gauge, Plus, Settings, Truck } from "lucide-react";
 
 const nav = [
   { href: "/", label: "Dashboard", icon: Gauge },
@@ -11,18 +10,8 @@ const nav = [
   { href: "/configuracoes", label: "Configurações", icon: Settings },
 ];
 
-export default function AppShell({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
-
-  async function sair() {
-    await supabase.auth.signOut();
-    router.replace("/login");
-  }
 
   return (
     <main className="app-shell">
@@ -43,7 +32,7 @@ export default function AppShell({
             return (
               <Link
                 key={href}
-                className={`nav-item ${active ? "active" : ""}`}
+                className={"nav-item " + (active ? "active" : "")}
                 href={href}
               >
                 <Icon size={18} />
@@ -57,11 +46,6 @@ export default function AppShell({
           <Plus size={18} />
           Nova viagem
         </Link>
-
-        <button className="sidebar-logout" type="button" onClick={sair}>
-          <LogOut size={17} />
-          Sair
-        </button>
       </aside>
 
       <section className="content">{children}</section>
