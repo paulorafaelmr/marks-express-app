@@ -102,7 +102,12 @@ export default function DetalheViagemPage() {
                 <p className="subtitle">{frete.empresa_agenciador || "Sem empresa informada"}</p>
               </div>
 
-              <StatusBadge status={calc.status} />
+              <div className="detail-header-actions">
+                <Link className="secondary-button" href={"/viagens/" + frete.id + "/editar"}>
+                  Editar viagem
+                </Link>
+                <StatusBadge status={calc.status} />
+              </div>
             </header>
 
             {erro && <div className="notice error-notice">{erro}</div>}
@@ -142,7 +147,9 @@ export default function DetalheViagemPage() {
 
                 <div className="parameter-list">
                   <div><span>Adiantamento</span><strong>{moeda(calc.adiantamento)}</strong></div>
+                  <div><span>Comissão do adiantamento</span><strong>{moeda(calc.comissaoAdiantamento)}</strong></div>
                   <div><span>Saldo do frete</span><strong>{moeda(calc.saldoFrete)}</strong></div>
+                  <div><span>Comissão do saldo</span><strong>{moeda(calc.comissaoSaldo)}</strong></div>
                   <div><span>Comissão total</span><strong>{moeda(calc.comissaoTotal)}</strong></div>
                   <div><span>Comissão pendente</span><strong>{moeda(calc.comissaoPendente)}</strong></div>
                   <div><span>Pedágio descontado</span><strong>{moeda(calc.pedagioDescontado)}</strong></div>
