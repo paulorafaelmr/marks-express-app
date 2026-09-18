@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Fuel, Plus, ReceiptText, Settings2, Truck } from "lucide-react";
+import { Plus, Settings2, Truck } from "lucide-react";
 import AuthGuard from "@/components/AuthGuard";
 import AppShell from "@/components/AppShell";
 import StatusBadge from "@/components/StatusBadge";
@@ -204,16 +204,6 @@ export default function Dashboard() {
                 <div><span>Média do caminhão</span><strong>{config ? Number(config.media_caminhao_km_l).toFixed(1).replace(".", ",") + " km/L" : "..."}</strong></div>
                 <div><span>Diesel médio</span><strong>{config ? moeda(Number(config.preco_medio_diesel)) + "/L" : "..."}</strong></div>
               </div>
-            </article>
-
-            <article className="panel quick-info">
-              <div className="quick-info-icon"><Fuel size={20} /></div>
-              <div><span>Cálculo automático</span><strong>Diesel estimado</strong><p>KM ÷ média × preço médio do diesel.</p></div>
-            </article>
-
-            <article className="panel quick-info">
-              <div className="quick-info-icon"><ReceiptText size={20} /></div>
-              <div><span>Resultado da viagem</span><strong>Sobra estimada</strong><p>Frete menos comissão, diesel, despesas e pedágio descontável.</p></div>
             </article>
           </div>
         </section>
