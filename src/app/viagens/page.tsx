@@ -1,36 +1,46 @@
 import Link from "next/link";
+import AppShell from "@/components/AppShell";
 
 export default function ViagensPage() {
   return (
-    <main className="simple-page">
-      <div className="page-header">
+    <AppShell>
+      <header className="page-topbar">
         <div>
-          <Link className="back-link" href="/">← Voltar ao painel</Link>
-          <p className="eyebrow">VIAGENS</p>
-          <h1>Todos os fretes</h1>
-          <p className="subtitle">Aqui ficarão todas as viagens, sem linhas vazias e com filtros simples.</p>
+          <p className="eyebrow">FRETES</p>
+          <h1>Viagens</h1>
+          <p className="subtitle">Uma linha por viagem, com leitura rápida e simples.</p>
         </div>
         <Link className="primary-button" href="/viagens/nova">+ Nova viagem</Link>
-      </div>
+      </header>
 
-      <div className="filter-bar">
-        <input placeholder="Buscar origem, destino ou empresa..." />
+      <section className="freight-toolbar">
+        <input placeholder="Buscar empresa, origem ou destino..." />
         <select defaultValue="todos">
           <option value="todos">Todos os status</option>
-          <option value="andamento">Em viagem</option>
+          <option value="viagem">Em viagem</option>
           <option value="saldo">Aguardando saldo</option>
           <option value="comissao">Comissão pendente</option>
           <option value="finalizado">Finalizado</option>
         </select>
-      </div>
+        <input type="month" defaultValue="2026-09" />
+      </section>
 
-      <section className="panel table-panel">
+      <section className="panel freight-panel">
+        <div className="freight-table-head">
+          <span>Data</span>
+          <span>Rota</span>
+          <span>Empresa</span>
+          <span>Frete</span>
+          <span>Sobra</span>
+          <span>Status</span>
+        </div>
+
         <div className="empty-state">
-          <h3>A lista está pronta para receber os dados</h3>
-          <p>Na próxima etapa vamos ligar esta tela ao banco e importar as viagens existentes da planilha.</p>
-          <Link className="secondary-button" href="/viagens/nova">Cadastrar uma viagem</Link>
+          <h3>Nenhum frete cadastrado</h3>
+          <p>As viagens vão aparecer aqui com valores e status automáticos.</p>
+          <Link className="secondary-button" href="/viagens/nova">Cadastrar viagem</Link>
         </div>
       </section>
-    </main>
+    </AppShell>
   );
 }
