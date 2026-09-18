@@ -1066,3 +1066,148 @@ textarea { resize: vertical; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Fixed expenses + card installments */
+.expense-summary {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, minmax(0, 0.8fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.expense-summary-main,
+.expense-summary-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.expense-summary-main {
+  background: linear-gradient(135deg, #fff9dd, #fffdf3);
+  border-color: var(--marks-yellow-border);
+}
+
+.expense-summary-main::before,
+.expense-summary-card::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 0;
+  width: 42px;
+  height: 4px;
+  border-radius: 0 0 4px 4px;
+  background: var(--marks-yellow);
+}
+
+.expense-summary span,
+.expense-summary strong,
+.expense-summary small {
+  display: block;
+}
+
+.expense-summary span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.expense-summary strong {
+  margin: 15px 0 7px;
+  font-size: 26px;
+  letter-spacing: -0.7px;
+}
+
+.expense-summary small {
+  color: #9299a1;
+}
+
+.expense-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.expense-column {
+  display: grid;
+  gap: 16px;
+}
+
+.fixed-add-panel.stacked {
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.installment-add-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.installment-help {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 8px 0 0;
+  max-width: 600px;
+}
+
+.installment-form {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 10px;
+}
+
+.installment-wide {
+  grid-column: 1 / -1;
+}
+
+.installment-form .primary-button {
+  grid-column: 1 / -1;
+}
+
+.installment-list-panel .panel-heading > svg {
+  color: #8b6b00;
+}
+
+.installment-row {
+  min-height: 86px;
+}
+
+.installment-end {
+  margin-top: 2px !important;
+  color: #8d7b43 !important;
+}
+
+@media (max-width: 1180px) {
+  .expense-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .expense-summary-main {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 980px) {
+  .expense-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .expense-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-summary-main {
+    grid-column: auto;
+  }
+
+  .installment-form {
+    grid-template-columns: 1fr;
+  }
+
+  .installment-wide,
+  .installment-form .primary-button {
+    grid-column: auto;
+  }
+}
