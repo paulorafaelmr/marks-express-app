@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { BadgeCheck, CheckCircle2, Circle, CreditCard, Plus, ReceiptText, Repeat2, WalletCards } from "lucide-react";
+import { BadgeCheck, CheckCircle2, ChevronDown, Circle, CreditCard, Plus, ReceiptText, Repeat2, WalletCards } from "lucide-react";
 import AuthGuard from "@/components/AuthGuard";
 import AppShell from "@/components/AppShell";
 import { moeda, mesAtualInput } from "@/lib/fretes";
@@ -97,6 +97,7 @@ export default function ContasFixasPage() {
   const [totalParcelas, setTotalParcelas] = useState("");
   const [parcelaAtual, setParcelaAtual] = useState("");
   const [salvandoParcela, setSalvandoParcela] = useState(false);
+  const [painelAberto, setPainelAberto] = useState<"conta" | "parcela" | null>(null);
 
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState("");
@@ -186,6 +187,7 @@ export default function ContasFixasPage() {
       setNome("");
       setValor("");
       await carregar();
+      setPainelAberto(null);
     }
 
     setSalvandoConta(false);
@@ -232,6 +234,7 @@ export default function ContasFixasPage() {
       setTotalParcelas("");
       setParcelaAtual("");
       await carregar();
+      setPainelAberto(null);
     }
 
     setSalvandoParcela(false);
@@ -449,106 +452,146 @@ export default function ContasFixasPage() {
           </article>
         </section>
 
-        <section className="expense-create-grid">
-          <article className="expense-create-card">
-            <div className="expense-create-heading">
-              <div className="expense-card-icon"><ReceiptText size={19} /></div>
-              <div>
-                <p className="eyebrow">RECORRENTE</p>
-                <h2>Nova conta fixa</h2>
-                <p>Para despesas que se repetem todos os meses.</p>
+        <section className="expense-create-grid collapsible-grid">
+          <article className={"expense-create-card collapsible-card " + (painelAberto === "conta" ? "open" : "")}>
+            <button
+              className="expense-collapse-trigger"
+              type="button"
+              aria-expanded={painelAberto === "conta"}
+              onClick={() =>
+                setPainelAberto((atual) => (atual === "conta" ? null : "conta"))
+              }
+            >
+              <span className="expense-create-heading compact">
+                <span className="expense-card-icon"><ReceiptText size={19} /></span>
+                <span>
+                  <span className="eyebrow">RECORRENTE</span>
+                  <strong>Nova conta fixa</strong>
+                  <small>Para despesas que se repetem todos os meses.</small>
+                </span>
+              </span>
+
+              <ChevronDown
+                className="expense-collapse-chevron"
+                size={20}
+                aria-hidden="true"
+              />
+            </button>
+
+            <div className="expense-collapse">
+              <div className="expense-collapse-inner">
+                <form className="expense-create-form fixed-form" onSubmit={adicionarConta}>
+                  <label className="field-block field-grow">
+                    <span>Descrição</span>
+                    <input
+                      placeholder="Ex.: Seguro do caminhão"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="field-block">
+                    <span>Valor mensal</span>
+                    <input
+                      placeholder="R$ 0,00"
+                      inputMode="decimal"
+                      value={valor}
+                      onChange={(e) => setValor(e.target.value)}
+                    />
+                  </label>
+
+                  <button className="primary-button" type="submit" disabled={salvandoConta}>
+                    <Plus size={17} />
+                    {salvandoConta ? "Adicionando..." : "Adicionar conta"}
+                  </button>
+                </form>
               </div>
             </div>
-
-            <form className="expense-create-form fixed-form" onSubmit={adicionarConta}>
-              <label className="field-block field-grow">
-                <span>Descrição</span>
-                <input
-                  placeholder="Ex.: Seguro do caminhão"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </label>
-              <label className="field-block">
-                <span>Valor mensal</span>
-                <input
-                  placeholder="R$ 0,00"
-                  inputMode="decimal"
-                  value={valor}
-                  onChange={(e) => setValor(e.target.value)}
-                />
-              </label>
-              <button className="primary-button" type="submit" disabled={salvandoConta}>
-                <Plus size={17} />
-                {salvandoConta ? "Adicionando..." : "Adicionar conta"}
-              </button>
-            </form>
           </article>
 
-          <article className="expense-create-card">
-            <div className="expense-create-heading">
-              <div className="expense-card-icon"><CreditCard size={19} /></div>
-              <div>
-                <p className="eyebrow">CARTÃO</p>
-                <h2>Novo parcelamento</h2>
-                <p>Informe a parcela atual e o sistema projeta os próximos meses.</p>
+          <article className={"expense-create-card collapsible-card " + (painelAberto === "parcela" ? "open" : "")}>
+            <button
+              className="expense-collapse-trigger"
+              type="button"
+              aria-expanded={painelAberto === "parcela"}
+              onClick={() =>
+                setPainelAberto((atual) => (atual === "parcela" ? null : "parcela"))
+              }
+            >
+              <span className="expense-create-heading compact">
+                <span className="expense-card-icon"><CreditCard size={19} /></span>
+                <span>
+                  <span className="eyebrow">CARTÃO</span>
+                  <strong>Novo parcelamento</strong>
+                  <small>Informe a parcela atual e o sistema projeta os próximos meses.</small>
+                </span>
+              </span>
+
+              <ChevronDown
+                className="expense-collapse-chevron"
+                size={20}
+                aria-hidden="true"
+              />
+            </button>
+
+            <div className="expense-collapse">
+              <div className="expense-collapse-inner">
+                <form className="expense-create-form installment-compact-form" onSubmit={adicionarParcela}>
+                  <label className="field-block field-wide">
+                    <span>Descrição</span>
+                    <input
+                      placeholder="Ex.: Pneus do caminhão"
+                      value={descricaoParcela}
+                      onChange={(e) => setDescricaoParcela(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="field-block">
+                    <span>Cartão</span>
+                    <input
+                      placeholder="Ex.: Sicredi"
+                      value={cartao}
+                      onChange={(e) => setCartao(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="field-block">
+                    <span>Valor da parcela</span>
+                    <input
+                      placeholder="R$ 0,00"
+                      inputMode="decimal"
+                      value={valorParcela}
+                      onChange={(e) => setValorParcela(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="field-block">
+                    <span>Total</span>
+                    <input
+                      placeholder="Ex.: 10"
+                      inputMode="numeric"
+                      value={totalParcelas}
+                      onChange={(e) => setTotalParcelas(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="field-block">
+                    <span>Parcela atual</span>
+                    <input
+                      placeholder="Ex.: 6"
+                      inputMode="numeric"
+                      value={parcelaAtual}
+                      onChange={(e) => setParcelaAtual(e.target.value)}
+                    />
+                  </label>
+
+                  <button className="primary-button field-wide" type="submit" disabled={salvandoParcela}>
+                    <Plus size={17} />
+                    {salvandoParcela ? "Adicionando..." : "Adicionar parcelamento"}
+                  </button>
+                </form>
               </div>
             </div>
-
-            <form className="expense-create-form installment-compact-form" onSubmit={adicionarParcela}>
-              <label className="field-block field-wide">
-                <span>Descrição</span>
-                <input
-                  placeholder="Ex.: Pneus do caminhão"
-                  value={descricaoParcela}
-                  onChange={(e) => setDescricaoParcela(e.target.value)}
-                />
-              </label>
-
-              <label className="field-block">
-                <span>Cartão</span>
-                <input
-                  placeholder="Ex.: Sicredi"
-                  value={cartao}
-                  onChange={(e) => setCartao(e.target.value)}
-                />
-              </label>
-
-              <label className="field-block">
-                <span>Valor da parcela</span>
-                <input
-                  placeholder="R$ 0,00"
-                  inputMode="decimal"
-                  value={valorParcela}
-                  onChange={(e) => setValorParcela(e.target.value)}
-                />
-              </label>
-
-              <label className="field-block">
-                <span>Total</span>
-                <input
-                  placeholder="Ex.: 10"
-                  inputMode="numeric"
-                  value={totalParcelas}
-                  onChange={(e) => setTotalParcelas(e.target.value)}
-                />
-              </label>
-
-              <label className="field-block">
-                <span>Parcela atual</span>
-                <input
-                  placeholder="Ex.: 6"
-                  inputMode="numeric"
-                  value={parcelaAtual}
-                  onChange={(e) => setParcelaAtual(e.target.value)}
-                />
-              </label>
-
-              <button className="primary-button field-wide" type="submit" disabled={salvandoParcela}>
-                <Plus size={17} />
-                {salvandoParcela ? "Adicionando..." : "Adicionar parcelamento"}
-              </button>
-            </form>
           </article>
         </section>
 
