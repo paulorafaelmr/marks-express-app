@@ -1994,3 +1994,23 @@ textarea { resize: vertical; }
   border-color: rgba(245, 197, 24, 0.28);
   color: var(--marks-yellow);
 }
+
+
+/* Center freight status labels on mobile */
+.status-badge {
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+}
+
+@media (max-width: 780px) {
+  .freight-row .status-badge {
+    min-width: 112px;
+    min-height: 34px;
+    padding: 0 12px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
