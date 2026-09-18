@@ -423,3 +423,311 @@ textarea { resize: vertical; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Functional states */
+.sidebar-logout {
+  margin-top: auto;
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  color: #9ba2aa;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.sidebar-logout:hover { color: white; }
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 15px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+}
+
+.error-notice {
+  background: #fff7f7;
+  border-color: #f1cccc;
+  color: #9b3030;
+}
+
+.success-notice {
+  background: #f4fbf6;
+  border-color: #cfe8d6;
+  color: #2e6f46;
+}
+
+.recent-list,
+.freight-list {
+  display: grid;
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.recent-item:last-child { border-bottom: 0; }
+
+.recent-route span,
+.recent-route strong,
+.recent-route small,
+.recent-value strong {
+  display: block;
+}
+
+.recent-route span,
+.recent-route small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.recent-route strong {
+  margin: 5px 0;
+  font-size: 15px;
+}
+
+.recent-value {
+  text-align: right;
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-aguardando-adiantamento { background: #fff3db; color: #8c5b00; }
+.status-em-viagem { background: #eaf2ff; color: #345f9a; }
+.status-aguardando-saldo { background: #fff2e8; color: #9d5a20; }
+.status-comissao-pendente { background: #f8ecff; color: #70408c; }
+.status-finalizado { background: #eaf8ef; color: #2f7247; }
+
+.freight-row {
+  display: grid;
+  grid-template-columns: 110px 1.5fr 1.2fr 130px 130px 160px;
+  gap: 14px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.freight-row:last-child { border-bottom: 0; }
+.freight-row:hover { background: #fbfcfd; }
+
+.freight-route strong,
+.freight-route small {
+  display: block;
+}
+
+.freight-route small,
+.freight-date,
+.freight-company {
+  color: var(--muted);
+}
+
+.freight-route small { margin-top: 4px; font-size: 11px; }
+.negative-value { color: #a23939; }
+
+.detail-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+}
+
+.steps-list {
+  display: grid;
+  margin-top: 18px;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 11px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.step-item:last-child { border-bottom: 0; }
+.step-item input { width: 18px; height: 18px; }
+.step-item span { font-size: 13px; }
+.step-item strong { font-size: 11px; color: #9a6d21; }
+.step-item.done strong { color: var(--green); }
+
+.detail-observation {
+  margin-top: 16px;
+}
+
+.detail-observation > p:last-child {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+.danger-zone {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.danger-button {
+  border: 1px solid #edcccc;
+  background: #fff;
+  color: #a33b3b;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+}
+
+.loading-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--dark);
+  color: white;
+  font-weight: 800;
+}
+
+.loading-screen p { color: var(--muted); }
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top left, #ffffff 0, transparent 34%),
+    var(--bg);
+}
+
+.login-card {
+  width: min(440px, 100%);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 18px 55px rgba(25, 30, 36, 0.08);
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.login-brand strong,
+.login-brand span { display: block; }
+
+.login-brand span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.login-copy p:last-child {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.login-form {
+  display: grid;
+  gap: 15px;
+  margin-top: 24px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.login-submit { width: 100%; margin-top: 5px; }
+
+.login-switch {
+  width: 100%;
+  margin-top: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+@media (max-width: 1180px) {
+  .freight-row {
+    grid-template-columns: 90px 1.5fr 1fr 120px 150px;
+  }
+
+  .freight-row > :nth-child(5) { display: none; }
+}
+
+@media (max-width: 900px) {
+  .detail-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 780px) {
+  .freight-row {
+    grid-template-columns: 1fr auto;
+    gap: 8px 14px;
+    align-items: start;
+  }
+
+  .freight-row > * { display: block !important; }
+  .freight-row .freight-date { grid-column: 1; }
+  .freight-row .freight-route { grid-column: 1; }
+  .freight-row .freight-company { grid-column: 1; }
+  .freight-row > strong { grid-column: 2; grid-row: 1; text-align: right; }
+  .freight-row > strong:nth-of-type(2) { display: none !important; }
+  .freight-row .status-badge { grid-column: 2; grid-row: 2 / span 2; justify-self: end; }
+
+  .recent-item { align-items: flex-start; }
+}
+
+@media (max-width: 520px) {
+  .detail-metrics { grid-template-columns: 1fr; }
+  .login-card { padding: 24px 20px; }
+}
