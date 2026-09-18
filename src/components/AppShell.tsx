@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Gauge, LogOut, Plus, Settings, Truck } from "lucide-react";
+import { Gauge, LogOut, Plus, ReceiptText, Settings, Truck } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 const nav = [
   { href: "/", label: "Dashboard", icon: Gauge },
   { href: "/viagens", label: "Fretes", icon: Truck },
+  { href: "/contas-fixas", label: "Contas fixas", icon: ReceiptText },
   { href: "/configuracoes", label: "Configurações", icon: Settings },
 ];
 
