@@ -156,8 +156,7 @@ export default function Dashboard() {
           <article className="panel panel-large attention-panel">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">ACOMPANHAMENTO</p>
-                <h2>Viagens que precisam de atenção</h2>
+                <p className="eyebrow">ACOMPANHAMENTO DE VIAGENS</p>
               </div>
               <Link href="/viagens">Ver todos os fretes</Link>
             </div>
