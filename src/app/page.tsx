@@ -124,28 +124,28 @@ export default function Dashboard() {
 
         {erro && <div className="notice error-notice">{erro}</div>}
 
-        <section className="metrics-grid metrics-five">
-          <article className="metric-card">
+        <section className="metrics-grid metrics-five dashboard-metrics">
+          <article className="metric-card dashboard-metric">
             <span>Faturamento</span>
             <strong>{moeda(resumo.faturamento)}</strong>
             <small>{viagensMes.length} viagens no mês</small>
           </article>
-          <article className="metric-card">
+          <article className="metric-card dashboard-metric">
             <span>Sobra estimada</span>
             <strong>{moeda(resumo.sobra)}</strong>
             <small>Após custos das viagens</small>
           </article>
-          <article className="metric-card">
+          <article className="metric-card dashboard-metric">
             <span>A receber</span>
             <strong>{moeda(resumo.aReceber)}</strong>
             <small>Adiantamentos e saldos</small>
           </article>
-          <article className="metric-card">
+          <article className="metric-card dashboard-metric">
             <span>Comissão pendente</span>
             <strong>{moeda(resumo.comissao)}</strong>
             <small>Motorista</small>
           </article>
-          <article className="metric-card">
+          <article className="metric-card dashboard-metric">
             <span>Diesel estimado</span>
             <strong>{moeda(resumo.diesel)}</strong>
             <small>Com base nos KM</small>
@@ -153,7 +153,7 @@ export default function Dashboard() {
         </section>
 
         <section className="dashboard-grid">
-          <article className="panel panel-large">
+          <article className="panel panel-large attention-panel">
             <div className="panel-heading">
               <div>
                 <p className="eyebrow">ACOMPANHAMENTO</p>
@@ -190,7 +190,7 @@ export default function Dashboard() {
           </article>
 
           <div className="dashboard-side">
-            <article className="panel">
+            <article className="panel settings-panel">
               <div className="panel-heading">
                 <div>
                   <p className="eyebrow">PARÂMETROS</p>
