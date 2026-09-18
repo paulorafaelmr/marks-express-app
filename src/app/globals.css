@@ -1779,3 +1779,109 @@ textarea { resize: vertical; }
     flex: 0 0 38px;
   }
 }
+
+
+/* Collapsible expense forms */
+.collapsible-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.expense-collapse-trigger {
+  width: 100%;
+  min-height: 86px;
+  padding: 18px 20px;
+  border: 0;
+  background: white;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.expense-collapse-trigger:hover {
+  background: #fbfcfd;
+}
+
+.expense-create-heading.compact {
+  margin: 0;
+  align-items: center;
+}
+
+.expense-create-heading.compact > span:last-child {
+  min-width: 0;
+}
+
+.expense-create-heading.compact .eyebrow {
+  display: block;
+  margin: 0 0 4px;
+}
+
+.expense-create-heading.compact strong {
+  display: block;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.expense-create-heading.compact small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 400;
+}
+
+.expense-collapse-chevron {
+  flex: 0 0 auto;
+  color: #747b82;
+  transition: transform 220ms ease, color 160ms ease;
+}
+
+.collapsible-card.open .expense-collapse-chevron {
+  transform: rotate(180deg);
+  color: #6e5600;
+}
+
+.collapsible-card.open .expense-collapse-trigger {
+  background: #fffdf5;
+  border-bottom: 1px solid #eee6bf;
+}
+
+.expense-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+
+.collapsible-card.open .expense-collapse {
+  grid-template-rows: 1fr;
+}
+
+.expense-collapse-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.expense-collapse-inner .expense-create-form {
+  padding: 20px 22px 22px;
+}
+
+@media (max-width: 620px) {
+  .expense-collapse-trigger {
+    min-height: 78px;
+    padding: 16px;
+  }
+
+  .expense-create-heading.compact small {
+    display: none;
+  }
+
+  .expense-collapse-inner .expense-create-form {
+    padding: 16px;
+  }
+}
