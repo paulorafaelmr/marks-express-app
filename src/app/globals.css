@@ -749,3 +749,133 @@ textarea { resize: vertical; }
     flex: 1;
   }
 }
+
+
+/* Marks Express dashboard visual identity */
+:root {
+  --marks-yellow: #f5c518;
+  --marks-yellow-soft: #fff9dd;
+  --marks-yellow-border: #efd66c;
+  --marks-yellow-deep: #d9a900;
+}
+
+.brand-mark {
+  background: var(--marks-yellow);
+  color: #111317;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-item.active {
+  background: #20242a;
+  color: white;
+  box-shadow: inset 3px 0 0 var(--marks-yellow);
+}
+
+.sidebar-new {
+  background: var(--marks-yellow);
+  color: #111317;
+}
+
+.sidebar-new:hover {
+  background: #ffd331;
+}
+
+.dashboard-metrics .dashboard-metric {
+  position: relative;
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.dashboard-metrics .dashboard-metric::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 0;
+  width: 42px;
+  height: 4px;
+  background: var(--marks-yellow);
+  border-radius: 0 0 4px 4px;
+}
+
+.dashboard-metrics .dashboard-metric:hover {
+  transform: translateY(-2px);
+  border-color: #dfe2e5;
+  box-shadow: 0 10px 26px rgba(18, 21, 25, 0.06);
+}
+
+.attention-panel {
+  background:
+    linear-gradient(135deg, rgba(255, 249, 221, 0.98), rgba(255, 253, 242, 0.96));
+  border-color: var(--marks-yellow-border);
+  box-shadow: 0 10px 30px rgba(201, 155, 0, 0.06);
+}
+
+.attention-panel .eyebrow {
+  color: #8b6b00;
+}
+
+.attention-panel .panel-heading > a {
+  color: #6e5600;
+}
+
+.attention-panel .recent-item {
+  border-bottom-color: rgba(190, 151, 24, 0.22);
+}
+
+.attention-panel .recent-item:hover {
+  background: rgba(255, 255, 255, 0.46);
+  margin-inline: -10px;
+  padding-inline: 10px;
+  border-radius: 12px;
+}
+
+.attention-panel .empty-icon {
+  background: rgba(245, 197, 24, 0.18);
+  border-color: rgba(198, 152, 0, 0.22);
+  color: #7c6000;
+}
+
+.settings-panel {
+  border-color: #e0e3e6;
+  box-shadow: 0 8px 24px rgba(18, 21, 25, 0.045);
+}
+
+.settings-panel .icon-link {
+  background: var(--marks-yellow-soft);
+  border-color: var(--marks-yellow-border);
+  color: #6e5600;
+}
+
+.settings-panel .parameter-list > div {
+  position: relative;
+  padding-left: 14px;
+}
+
+.settings-panel .parameter-list > div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--marks-yellow);
+}
+
+.primary-button {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(17, 19, 23, 0.14);
+}
+
+@media (max-width: 780px) {
+  .attention-panel {
+    background: var(--marks-yellow-soft);
+  }
+
+  .dashboard-metrics .dashboard-metric::before {
+    left: 18px;
+  }
+}
