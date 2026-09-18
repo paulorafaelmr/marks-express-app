@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Circle, CreditCard, Plus } from "lucide-react";
+import { BadgeCheck, CheckCircle2, Circle, CreditCard, Plus, ReceiptText, Repeat2, WalletCards } from "lucide-react";
 import AuthGuard from "@/components/AuthGuard";
 import AppShell from "@/components/AppShell";
 import { moeda, mesAtualInput } from "@/lib/fretes";
@@ -412,219 +412,256 @@ export default function ContasFixasPage() {
         {erro && <div className="notice error-notice">{erro}</div>}
 
         <section className="expense-summary">
-          <article className="panel expense-summary-main">
-            <span>Total comprometido em {tituloMes(mes)}</span>
-            <strong>{moeda(totalComprometido)}</strong>
-            <small>Contas fixas + parcelas do cartão</small>
+          <article className="expense-hero-card">
+            <div className="expense-card-icon dark"><WalletCards size={21} /></div>
+            <div>
+              <span>Total comprometido</span>
+              <strong>{moeda(totalComprometido)}</strong>
+              <small>{tituloMes(mes)} · contas fixas + cartão</small>
+            </div>
           </article>
 
-          <article className="panel expense-summary-card">
-            <span>Contas fixas</span>
-            <strong>{moeda(totalContas)}</strong>
-            <small>{contas.length} contas recorrentes</small>
+          <article className="expense-stat-card">
+            <div className="expense-card-icon"><Repeat2 size={19} /></div>
+            <div>
+              <span>Contas fixas</span>
+              <strong>{moeda(totalContas)}</strong>
+              <small>{contas.length} recorrentes</small>
+            </div>
           </article>
 
-          <article className="panel expense-summary-card">
-            <span>Parcelas no cartão</span>
-            <strong>{moeda(totalParcelasMes)}</strong>
-            <small>{parcelasDoMes.length} parcelas neste mês</small>
+          <article className="expense-stat-card">
+            <div className="expense-card-icon"><CreditCard size={19} /></div>
+            <div>
+              <span>Parcelas no cartão</span>
+              <strong>{moeda(totalParcelasMes)}</strong>
+              <small>{parcelasDoMes.length} neste mês</small>
+            </div>
           </article>
 
-          <article className="panel expense-summary-card">
-            <span>Concluído no mês</span>
-            <strong>{moeda(totalConcluido)}</strong>
-            <small>Do total comprometido</small>
+          <article className="expense-stat-card success">
+            <div className="expense-card-icon"><BadgeCheck size={19} /></div>
+            <div>
+              <span>Concluído no mês</span>
+              <strong>{moeda(totalConcluido)}</strong>
+              <small>Do total comprometido</small>
+            </div>
           </article>
         </section>
 
-        <section className="expense-sections">
-          <div className="expense-column">
-            <section className="panel fixed-add-panel stacked">
+        <section className="expense-create-grid">
+          <article className="expense-create-card">
+            <div className="expense-create-heading">
+              <div className="expense-card-icon"><ReceiptText size={19} /></div>
               <div>
                 <p className="eyebrow">RECORRENTE</p>
-                <h2>Adicionar conta fixa</h2>
+                <h2>Nova conta fixa</h2>
+                <p>Para despesas que se repetem todos os meses.</p>
               </div>
+            </div>
 
-              <form className="fixed-add-form" onSubmit={adicionarConta}>
+            <form className="expense-create-form fixed-form" onSubmit={adicionarConta}>
+              <label className="field-block field-grow">
+                <span>Descrição</span>
                 <input
                   placeholder="Ex.: Seguro do caminhão"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                 />
+              </label>
+              <label className="field-block">
+                <span>Valor mensal</span>
                 <input
                   placeholder="R$ 0,00"
                   inputMode="decimal"
                   value={valor}
                   onChange={(e) => setValor(e.target.value)}
                 />
-                <button className="primary-button" type="submit" disabled={salvandoConta}>
-                  <Plus size={17} />
-                  {salvandoConta ? "Adicionando..." : "Adicionar"}
-                </button>
-              </form>
-            </section>
+              </label>
+              <button className="primary-button" type="submit" disabled={salvandoConta}>
+                <Plus size={17} />
+                {salvandoConta ? "Adicionando..." : "Adicionar conta"}
+              </button>
+            </form>
+          </article>
 
-            <section className="panel fixed-list-panel">
-              <div className="panel-heading">
-                <div>
-                  <p className="eyebrow">CONTAS FIXAS</p>
-                  <h2>{tituloMes(mes)}</h2>
-                </div>
-              </div>
-
-              {loading ? (
-                <div className="empty-state compact"><p>Carregando contas...</p></div>
-              ) : contas.length === 0 ? (
-                <div className="empty-state compact">
-                  <h3>Nenhuma conta fixa cadastrada</h3>
-                  <p>Adicione despesas que se repetem todos os meses.</p>
-                </div>
-              ) : (
-                <div className="fixed-list">
-                  {contas.map((conta) => {
-                    const pago = Boolean(mensais[conta.id]?.pago);
-
-                    return (
-                      <button
-                        className={"fixed-row " + (pago ? "done" : "")}
-                        key={conta.id}
-                        type="button"
-                        onClick={() => alternarPago(conta.id)}
-                      >
-                        <span className="fixed-check">
-                          {pago ? <CheckCircle2 size={23} /> : <Circle size={23} />}
-                        </span>
-
-                        <span className="fixed-name">
-                          <strong>{conta.nome}</strong>
-                          <small>{pago ? "Concluído neste mês" : "Pendente neste mês"}</small>
-                        </span>
-
-                        <strong className="fixed-value">{moeda(Number(conta.valor))}</strong>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              <div className="fixed-total-row">
-                <span>Total das contas fixas</span>
-                <strong>{moeda(totalContas)}</strong>
-              </div>
-            </section>
-          </div>
-
-          <div className="expense-column">
-            <section className="panel installment-add-panel">
+          <article className="expense-create-card">
+            <div className="expense-create-heading">
+              <div className="expense-card-icon"><CreditCard size={19} /></div>
               <div>
                 <p className="eyebrow">CARTÃO</p>
-                <h2>Adicionar parcelamento</h2>
-                <p className="installment-help">
-                  Informe qual parcela está sendo paga no mês selecionado. O sistema calcula os próximos meses sozinho.
-                </p>
+                <h2>Novo parcelamento</h2>
+                <p>Informe a parcela atual e o sistema projeta os próximos meses.</p>
               </div>
+            </div>
 
-              <form className="installment-form" onSubmit={adicionarParcela}>
+            <form className="expense-create-form installment-compact-form" onSubmit={adicionarParcela}>
+              <label className="field-block field-wide">
+                <span>Descrição</span>
                 <input
-                  className="installment-wide"
                   placeholder="Ex.: Pneus do caminhão"
                   value={descricaoParcela}
                   onChange={(e) => setDescricaoParcela(e.target.value)}
                 />
+              </label>
+
+              <label className="field-block">
+                <span>Cartão</span>
                 <input
-                  placeholder="Cartão"
+                  placeholder="Ex.: Sicredi"
                   value={cartao}
                   onChange={(e) => setCartao(e.target.value)}
                 />
+              </label>
+
+              <label className="field-block">
+                <span>Valor da parcela</span>
                 <input
-                  placeholder="Valor da parcela"
+                  placeholder="R$ 0,00"
                   inputMode="decimal"
                   value={valorParcela}
                   onChange={(e) => setValorParcela(e.target.value)}
                 />
+              </label>
+
+              <label className="field-block">
+                <span>Total</span>
                 <input
-                  placeholder="Total de parcelas"
+                  placeholder="Ex.: 10"
                   inputMode="numeric"
                   value={totalParcelas}
                   onChange={(e) => setTotalParcelas(e.target.value)}
                 />
+              </label>
+
+              <label className="field-block">
+                <span>Parcela atual</span>
                 <input
-                  placeholder="Parcela atual"
+                  placeholder="Ex.: 6"
                   inputMode="numeric"
                   value={parcelaAtual}
                   onChange={(e) => setParcelaAtual(e.target.value)}
                 />
-                <button className="primary-button" type="submit" disabled={salvandoParcela}>
-                  <Plus size={17} />
-                  {salvandoParcela ? "Adicionando..." : "Adicionar"}
-                </button>
-              </form>
-            </section>
+              </label>
 
-            <section className="panel fixed-list-panel installment-list-panel">
-              <div className="panel-heading">
-                <div>
-                  <p className="eyebrow">PARCELAS NO CARTÃO</p>
-                  <h2>{tituloMes(mes)}</h2>
-                </div>
-                <CreditCard size={19} />
+              <button className="primary-button field-wide" type="submit" disabled={salvandoParcela}>
+                <Plus size={17} />
+                {salvandoParcela ? "Adicionando..." : "Adicionar parcelamento"}
+              </button>
+            </form>
+          </article>
+        </section>
+
+        <section className="expense-list-stack">
+          <article className="panel expense-list-card">
+            <div className="expense-list-heading">
+              <div>
+                <p className="eyebrow">CONTAS FIXAS</p>
+                <h2>Recorrentes de {tituloMes(mes)}</h2>
               </div>
+              <div className="expense-list-heading-total">
+                <span>Total</span>
+                <strong>{moeda(totalContas)}</strong>
+              </div>
+            </div>
 
-              {loading ? (
-                <div className="empty-state compact"><p>Carregando parcelas...</p></div>
-              ) : parcelasDoMes.length === 0 ? (
-                <div className="empty-state compact">
-                  <h3>Nenhuma parcela neste mês</h3>
-                  <p>Os parcelamentos ativos aparecerão automaticamente nos meses corretos.</p>
-                </div>
-              ) : (
-                <div className="fixed-list">
-                  {parcelasDoMes.map((item) => {
-                    const pago = Boolean(parcelasMensais[item.id]?.pago);
+            {loading ? (
+              <div className="empty-state compact"><p>Carregando contas...</p></div>
+            ) : contas.length === 0 ? (
+              <div className="empty-state compact">
+                <h3>Nenhuma conta fixa cadastrada</h3>
+                <p>Adicione despesas que se repetem todos os meses.</p>
+              </div>
+            ) : (
+              <div className="fixed-list polished">
+                {contas.map((conta) => {
+                  const pago = Boolean(mensais[conta.id]?.pago);
 
-                    return (
-                      <button
-                        className={"fixed-row installment-row " + (pago ? "done" : "")}
-                        key={item.id}
-                        type="button"
-                        onClick={() => alternarParcelaPago(item.id)}
-                      >
-                        <span className="fixed-check">
-                          {pago ? <CheckCircle2 size={23} /> : <Circle size={23} />}
-                        </span>
+                  return (
+                    <button
+                      className={"fixed-row polished-row " + (pago ? "done" : "")}
+                      key={conta.id}
+                      type="button"
+                      onClick={() => alternarPago(conta.id)}
+                    >
+                      <span className="fixed-check">
+                        {pago ? <CheckCircle2 size={22} /> : <Circle size={22} />}
+                      </span>
 
-                        <span className="fixed-name">
-                          <strong>{item.descricao}</strong>
-                          <small>
-                            {item.numeroParcela}/{item.total_parcelas}
-                            {item.cartao ? " • " + item.cartao : ""}
-                            {" • "}
-                            {item.faltam === 0
-                              ? "última parcela"
-                              : item.faltam === 1
-                                ? "falta 1 parcela"
-                                : "faltam " + item.faltam + " parcelas"}
-                          </small>
-                          <small className="installment-end">
-                            Termina em {mesCurto(item.terminaEm)}
-                          </small>
-                        </span>
+                      <span className="fixed-name">
+                        <strong>{conta.nome}</strong>
+                        <small>{pago ? "Concluído neste mês" : "Pendente"}</small>
+                      </span>
 
-                        <strong className="fixed-value">
-                          {moeda(Number(item.valor_parcela))}
-                        </strong>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                      <strong className="fixed-value">{moeda(Number(conta.valor))}</strong>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </article>
 
-              <div className="fixed-total-row">
-                <span>Total das parcelas no mês</span>
+          <article className="panel expense-list-card card-installments">
+            <div className="expense-list-heading">
+              <div>
+                <p className="eyebrow">PARCELAS NO CARTÃO</p>
+                <h2>Parcelamentos de {tituloMes(mes)}</h2>
+              </div>
+              <div className="expense-list-heading-total">
+                <span>Total</span>
                 <strong>{moeda(totalParcelasMes)}</strong>
               </div>
-            </section>
-          </div>
+            </div>
+
+            {loading ? (
+              <div className="empty-state compact"><p>Carregando parcelas...</p></div>
+            ) : parcelasDoMes.length === 0 ? (
+              <div className="empty-state compact expense-empty">
+                <div className="empty-icon"><CreditCard size={22} /></div>
+                <h3>Nenhuma parcela neste mês</h3>
+                <p>Os parcelamentos ativos aparecem automaticamente nos meses corretos.</p>
+              </div>
+            ) : (
+              <div className="fixed-list polished">
+                {parcelasDoMes.map((item) => {
+                  const pago = Boolean(parcelasMensais[item.id]?.pago);
+
+                  return (
+                    <button
+                      className={"fixed-row polished-row installment-row " + (pago ? "done" : "")}
+                      key={item.id}
+                      type="button"
+                      onClick={() => alternarParcelaPago(item.id)}
+                    >
+                      <span className="fixed-check">
+                        {pago ? <CheckCircle2 size={22} /> : <Circle size={22} />}
+                      </span>
+
+                      <span className="fixed-name">
+                        <strong>{item.descricao}</strong>
+                        <small>
+                          Parcela {item.numeroParcela}/{item.total_parcelas}
+                          {item.cartao ? " · " + item.cartao : ""}
+                          {" · "}
+                          {item.faltam === 0
+                            ? "última parcela"
+                            : item.faltam === 1
+                              ? "falta 1"
+                              : "faltam " + item.faltam}
+                        </small>
+                        <small className="installment-end">
+                          Termina em {mesCurto(item.terminaEm)}
+                        </small>
+                      </span>
+
+                      <strong className="fixed-value">{moeda(Number(item.valor_parcela))}</strong>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </article>
+        </section>
         </section>
       </AppShell>
     </AuthGuard>
