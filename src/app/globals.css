@@ -1941,3 +1941,56 @@ textarea { resize: vertical; }
 .collapsible-card.open .expense-collapse-inner {
   background: white;
 }
+
+
+/* Dark dashboard attention panel */
+.attention-panel {
+  background: #15181c;
+  border-color: #15181c;
+  color: white;
+  box-shadow: 0 12px 30px rgba(17, 19, 23, 0.12);
+}
+
+.attention-panel .eyebrow {
+  color: var(--marks-yellow);
+}
+
+.attention-panel h2 {
+  color: white;
+}
+
+.attention-panel .panel-heading > a {
+  color: var(--marks-yellow);
+}
+
+.attention-panel .recent-item {
+  border-bottom-color: #2b3036;
+}
+
+.attention-panel .recent-item:hover {
+  background: #1d2126;
+}
+
+.attention-panel .recent-route > span,
+.attention-panel .recent-route > small {
+  color: #a7adb4;
+}
+
+.attention-panel .recent-route > strong,
+.attention-panel .recent-value > strong {
+  color: white;
+}
+
+.attention-panel .empty-state h3 {
+  color: white;
+}
+
+.attention-panel .empty-state p {
+  color: #a7adb4;
+}
+
+.attention-panel .empty-icon {
+  background: rgba(245, 197, 24, 0.12);
+  border-color: rgba(245, 197, 24, 0.28);
+  color: var(--marks-yellow);
+}
