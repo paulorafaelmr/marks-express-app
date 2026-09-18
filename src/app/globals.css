@@ -1885,3 +1885,59 @@ textarea { resize: vertical; }
     padding: 16px;
   }
 }
+
+
+/* Dark collapsible expense headers */
+.collapsible-card {
+  background: #15181c;
+  border-color: #15181c;
+}
+
+.expense-collapse-trigger {
+  background: #15181c;
+  color: white;
+}
+
+.expense-collapse-trigger:hover {
+  background: #1c2025;
+}
+
+.expense-create-heading.compact .eyebrow {
+  color: #b8bec5;
+}
+
+.expense-create-heading.compact strong {
+  color: white;
+}
+
+.expense-create-heading.compact small {
+  color: #9ea5ad;
+}
+
+.expense-collapse-chevron {
+  color: #c3c8ce;
+}
+
+.collapsible-card.open .expense-collapse-trigger {
+  background: #1b1f24;
+  border-bottom-color: #2c3137;
+}
+
+.collapsible-card.open .expense-collapse-chevron {
+  color: var(--marks-yellow);
+}
+
+.collapsible-card .expense-card-icon {
+  background: var(--marks-yellow);
+  border-color: var(--marks-yellow);
+  color: #111317;
+}
+
+.collapsible-card.open {
+  background: white;
+  border-color: var(--line);
+}
+
+.collapsible-card.open .expense-collapse-inner {
+  background: white;
+}
